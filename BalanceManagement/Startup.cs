@@ -1,3 +1,4 @@
+using BalanceManagement.Injection.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,7 +26,11 @@ namespace BalanceManagement
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string apiHost = Configuration.GetValue<string>("APIHost").TrimEnd('/') + "/";
             services.AddControllers();
+            #region Swagger Docs
+            services.AddSwaggerDocumentation(apiHost);
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +51,9 @@ namespace BalanceManagement
             {
                 endpoints.MapControllers();
             });
+            #region Use Swagger
+            app.UseSwaggerDocumentation();
+            #endregion
         }
     }
 }
