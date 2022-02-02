@@ -1,4 +1,5 @@
 using BalanceManagement.AuthConfig;
+using BalanceManagement.Injection.Auth;
 using BalanceManagement.Injection.IdentityServer;
 using BalanceManagement.Injection.Swagger;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,9 @@ namespace BalanceManagement
             string apiHost = Configuration.GetValue<string>("APIHost").TrimEnd('/') + "/";
             #region Identity Server
             services.IdentityServerInjection(apiHost);
+            #endregion
+            #region Auth Configuration
+            services.AddAuthConfiguration(apiHost);
             #endregion
             services.AddControllers();
             #region Swagger Docs

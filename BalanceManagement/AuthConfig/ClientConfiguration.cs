@@ -25,11 +25,9 @@ namespace BalanceManagement.AuthConfig
                 {
                     ClientId = "Api",
                     AllowedGrantTypes = GrantTypes.ClientCredentials ,
-                    RequireClientSecret = false,
                     AllowOfflineAccess=true,
                     AllowAccessTokensViaBrowser = true,
                     AllowedScopes = new[] { "BalanceManagementApi" },
-                    ClientName = "BalanceManagement",
                     ClientSecrets = new[] { new Secret("5Aue2ks34fj".Sha256()) },
                     AccessTokenLifetime = 3600*24*365*10
                 }
