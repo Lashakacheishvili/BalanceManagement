@@ -14,7 +14,8 @@ namespace BalanceManagement.Injection.IdentityServer
             .AddDeveloperSigningCredential()
             .AddInMemoryPersistedGrants()
             .AddInMemoryApiResources(ClientConfiguration.GetApiResources())
-            .AddInMemoryClients(ClientConfiguration.GetClients());
+            .AddInMemoryClients(ClientConfiguration.GetClients())
+            .AddInMemoryApiScopes(ClientConfiguration.GetApiScopes());
             return services;
         }
     }

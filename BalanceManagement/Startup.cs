@@ -51,14 +51,14 @@ namespace BalanceManagement
             }
 
             app.UseHttpsRedirection();
-
+            app.UseIdentityServer();
             app.UseRouting();
-
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapDefaultControllerRoute();
             });
             #region Use Swagger
             app.UseSwaggerDocumentation();

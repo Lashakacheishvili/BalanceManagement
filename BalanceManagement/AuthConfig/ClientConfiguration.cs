@@ -23,7 +23,7 @@ namespace BalanceManagement.AuthConfig
             {
                 new Client
                 {
-                    ClientId = "Api",
+                    ClientId = "BalanceManagement",
                     AllowedGrantTypes = GrantTypes.ClientCredentials ,
                     AllowOfflineAccess=true,
                     AllowAccessTokensViaBrowser = true,

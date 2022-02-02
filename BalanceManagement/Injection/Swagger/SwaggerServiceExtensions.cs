@@ -88,8 +88,6 @@ namespace BalanceManagement.Injection.Swagger
                 c.RoutePrefix = string.Empty;
                 c.DocumentTitle = "BalanceManagement API";
                 c.DocExpansion(DocExpansion.None);
-                c.OAuthClientId("Api");
-                c.OAuthClientSecret("5Aue2ks34fj");
                 c.OAuthScopeSeparator(" ");
                 c.OAuthUseBasicAuthenticationWithAccessCodeGrant();
 
