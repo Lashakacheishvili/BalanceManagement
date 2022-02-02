@@ -14,7 +14,6 @@ namespace BalanceManagement.Injection.Swagger
         {
             services.AddSwaggerGen(c =>
             {
-            //c.OperationFilter<AddAcceptLanguageParameter>();
             c.CustomSchemaIds(obj => obj.FullName);
                 c.SwaggerDoc("v1",
                     new OpenApiInfo()
@@ -41,7 +40,7 @@ namespace BalanceManagement.Injection.Swagger
                     Type = SecuritySchemeType.OAuth2,
                     Flows = new OpenApiOAuthFlows()
                     {
-                        Password = new OpenApiOAuthFlow
+                        ClientCredentials = new OpenApiOAuthFlow
                         {
                             TokenUrl = new Uri($"{apiHost}connect/token", UriKind.Absolute),
                             Scopes = new Dictionary<string, string>

@@ -1,3 +1,5 @@
+using BalanceManagement.AuthConfig;
+using BalanceManagement.Injection.IdentityServer;
 using BalanceManagement.Injection.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,12 +29,15 @@ namespace BalanceManagement
         public void ConfigureServices(IServiceCollection services)
         {
             string apiHost = Configuration.GetValue<string>("APIHost").TrimEnd('/') + "/";
+            #region Identity Server
+            services.IdentityServerInjection(apiHost);
+            #endregion
             services.AddControllers();
             #region Swagger Docs
             services.AddSwaggerDocumentation(apiHost);
             #endregion
         }
-
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
