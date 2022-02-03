@@ -11,7 +11,6 @@ namespace Service.InjectionService
         {
             services.AddScoped<IBalanceManager, CasinoBalanceManager>();
             services.AddScoped<IBalanceManager, GameBalanceManager>();
-            services.AddScoped<IBaseManagementService, CasinoManagementService>();
             services.AddScoped<IBaseManagementService, GameManagementService>();
             return services;
         }

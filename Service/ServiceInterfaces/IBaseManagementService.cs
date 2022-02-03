@@ -8,9 +8,9 @@ namespace Service.ServiceInterfaces
 {
     public interface IBaseManagementService
     {
-        BaseResponseModel EnrollmentMoney(TransferMoneyRequestModel request);
-        BaseResponseModel DeductionMoney(TransferMoneyRequestModel request);
-        BaseResponseModel Rollback(TransferBaseRequestModel request);
-        decimal GetBalance();
+        BaseResponseModel TransferMoneyToPlayer(TransferMoneyRequestModel request);
+        BaseResponseModel TransferMoneyToCasino(TransferMoneyRequestModel request);
+        decimal GetBalancePlayer();
+        decimal GetBalanceCasino();
     }
 }
