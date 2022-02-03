@@ -26,14 +26,24 @@ namespace BalanceManagement.Controllers
         [HttpPost("withdrawal/{transactionid}/{amount}")]
         public BaseResponseModel TransferMoneyToPlayer(string transactionId, decimal amount)
         {
-            var deduction=_casinoBalanceManager.DeductionMoney(new ServiceModels.TransferModel.TransferMoneyRequestModel { Amount = amount, TransactionId=transactionId });
-            return deduction.HttpStatusCode==0?_gameBalanceManager.EnrollmentMoney(new ServiceModels.TransferModel.TransferMoneyRequestModel { Amount = amount, TransactionId = transactionId }):_casinoBalanceManager.Rollback(new ServiceModels.TransferModel.TransferBaseRequestModel {  TransactionId=transactionId});
+            var deduction = _casinoBalanceManager.DeductionMoney(new ServiceModels.TransferModel.TransferMoneyRequestModel { Amount = amount, TransactionId = transactionId });
+            if (deduction.HttpStatusCode == 0)
+            {
+                var enrollment = _gameBalanceManager.EnrollmentMoney(new ServiceModels.TransferModel.TransferMoneyRequestModel { Amount = amount, TransactionId = transactionId });
+                return enrollment.HttpStatusCode == 0 ? enrollment : _casinoBalanceManager.Rollback(new ServiceModels.TransferModel.TransferBaseRequestModel { TransactionId = transactionId });
+            }
+            return deduction;
         }
         [HttpPost("deposit/{transactionid}/{amount}")]
         public BaseResponseModel TransferMoneyToCasino(string transactionId, decimal amount)
         {
             var deduction = _gameBalanceManager.DeductionMoney(new ServiceModels.TransferModel.TransferMoneyRequestModel { Amount = amount, TransactionId = transactionId });
-            return deduction.HttpStatusCode == 0 ? _casinoBalanceManager.EnrollmentMoney(new ServiceModels.TransferModel.TransferMoneyRequestModel { Amount = amount, TransactionId = transactionId }) : _gameBalanceManager.Rollback(new ServiceModels.TransferModel.TransferBaseRequestModel { TransactionId = transactionId });
+            if (deduction.HttpStatusCode == 0)
+            {
+                var enrollment = _casinoBalanceManager.EnrollmentMoney(new ServiceModels.TransferModel.TransferMoneyRequestModel { Amount = amount, TransactionId = transactionId });
+                return enrollment.HttpStatusCode == 0 ? enrollment : _gameBalanceManager.Rollback(new ServiceModels.TransferModel.TransferBaseRequestModel { TransactionId = transactionId });
+            }
+            return deduction;
         }
     }
 }

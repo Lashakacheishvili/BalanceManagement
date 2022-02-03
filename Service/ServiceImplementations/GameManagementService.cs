@@ -35,7 +35,7 @@ namespace Service.ServiceImplementations
         public BaseResponseModel Rollback(TransferBaseRequestModel request)
         {
             var result = _gameBalanceManager.Rollback(request.TransactionId);
-            return new BaseResponseModel { HttpStatusCode = (int)result, Message = result.ToString() };
+            return new BaseResponseModel { HttpStatusCode = (int)result, Message = ErrorCode.TransactionRejected.ToString() };
         }
         public decimal GetBalance()
         {
