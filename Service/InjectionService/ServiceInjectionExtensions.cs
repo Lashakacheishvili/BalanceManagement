@@ -1,10 +1,9 @@
 ﻿using Balances;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System.IO;
-using System.Reflection;
+using Service.ServiceImplementations;
+using Service.ServiceInterfaces;
 
-namespace BalanceManagement.Injection.ServiceInjection
+namespace Service.InjectionService
 {
     public static class ServiceInjectionExtensions
     {
@@ -12,6 +11,8 @@ namespace BalanceManagement.Injection.ServiceInjection
         {
             services.AddScoped<IBalanceManager, CasinoBalanceManager>();
             services.AddScoped<IBalanceManager, GameBalanceManager>();
+            services.AddScoped<IBaseManagementService, CasinoManagementService>();
+            services.AddScoped<IBaseManagementService, GameManagementService>();
             return services;
         }
     }
