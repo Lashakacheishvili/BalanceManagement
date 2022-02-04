@@ -15,8 +15,7 @@
 
   <ItemGroup>
     <Reference Include="BalanceManager">
-      <HintPath>..\BalanceManagement\bin\Debug\netcoreapp3.1\BalanceManager.dll</HintPath>
-      <CopyLocal>True</CopyLocal>
+      <HintPath>InjectionService\DLL\BalanceManager.dll</HintPath>
     </Reference>
   </ItemGroup>
 
