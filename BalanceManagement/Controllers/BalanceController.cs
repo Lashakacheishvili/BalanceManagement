@@ -11,16 +11,16 @@ namespace BalanceManagement.Controllers
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class BalanceController : BaseController
     {
-        private readonly IBaseManagementService _gameBalanceManager;
-        public BalanceController()
+        private readonly IBaseManagementService _baseManagementService;
+        public BalanceController(IBaseManagementService baseManagementService)
         {
-            _gameBalanceManager = new GameManagementService();
+            _baseManagementService = baseManagementService;
         }
         [HttpGet("balance")]
-        public decimal GetBalance()=> _gameBalanceManager.GetBalanceCasino();
+        public decimal GetBalance() => _baseManagementService.GetBalanceCasino();
         [HttpPost("withdrawal/{transactionId}/{amount}")]
-        public BaseResponseModel TransferMoneyToPlayer(string transactionId, decimal amount) => _gameBalanceManager.TransferMoneyToPlayer(new ServiceModels.TransferModel.TransferMoneyRequestModel(transactionId, amount));
+        public BaseResponseModel TransferMoneyToPlayer(string transactionId, decimal amount) => _baseManagementService.TransferMoneyToPlayer(new ServiceModels.TransferModel.TransferMoneyRequestModel(transactionId, amount));
         [HttpPost("deposit/{transactionId}/{amount}")]
-        public BaseResponseModel TransferMoneyToCasino(string transactionId, decimal amount)=> _gameBalanceManager.TransferMoneyToCasino(new ServiceModels.TransferModel.TransferMoneyRequestModel(transactionId, amount));
+        public BaseResponseModel TransferMoneyToCasino(string transactionId, decimal amount) => _baseManagementService.TransferMoneyToCasino(new ServiceModels.TransferModel.TransferMoneyRequestModel(transactionId, amount));
     }
 }

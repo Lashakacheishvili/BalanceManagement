@@ -9,8 +9,6 @@ namespace Service.InjectionService
     {
         public static IServiceCollection AddService(this IServiceCollection services)
         {
-            services.AddScoped<IBalanceManager, CasinoBalanceManager>();
-            services.AddScoped<IBalanceManager, GameBalanceManager>();
             services.AddScoped<IBaseManagementService, GameManagementService>();
             return services;
         }
