@@ -27,9 +27,10 @@ Client Credentials:
  {
     	"client_id": "BalanceManagement",
     	"client_secret": "5Aue2ks34fj"
-      }
+  }
 
-##Testing
+
+## Testing
 
 You can test it by swagger doc or postman.
 
