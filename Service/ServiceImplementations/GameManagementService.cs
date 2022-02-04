@@ -47,9 +47,11 @@ namespace Service.ServiceImplementations
         {
             if (string.IsNullOrEmpty(request.TransactionId) || request.Amount <= 0)
                 return new BaseResponseModel((int)ErrorCode.UnknownError, ErrorCode.UnknownError.ToString());
+
             var playerCheckTransaction = _gameBalanceManager.CheckTransaction(request.TransactionId);
             if (!playerCheckTransaction.Equals(ErrorCode.Success))
                 return new BaseResponseModel((int)playerCheckTransaction, playerCheckTransaction.ToString());
+
             var increaseResult = _gameBalanceManager.IncreaseBalance(request.Amount, request.TransactionId);
             return new BaseResponseModel((int)increaseResult, increaseResult.ToString());
         }
@@ -57,17 +59,21 @@ namespace Service.ServiceImplementations
         {
             if (string.IsNullOrEmpty(request.TransactionId) || request.Amount <= 0)
                 return new BaseResponseModel((int)ErrorCode.UnknownError, ErrorCode.UnknownError.ToString());
+
             var playerCheckTransaction = _gameBalanceManager.CheckTransaction(request.TransactionId);
             if (!playerCheckTransaction.Equals(ErrorCode.Success))
                 return new BaseResponseModel((int)playerCheckTransaction, playerCheckTransaction.ToString());
+
             var decreaseResult = _gameBalanceManager.DecreaseBalance(request.Amount, request.TransactionId);
             return new BaseResponseModel((int)decreaseResult, decreaseResult.ToString());
         }
         BaseResponseModel RollbackPlayer(TransferBaseRequestModel request)
         {
             var result = _gameBalanceManager.Rollback(request.TransactionId);
+
             if (result.Equals(ErrorCode.Success))
                 return new BaseResponseModel((int)ErrorCode.TransactionRejected, ErrorCode.TransactionRejected.ToString());
+
             return new BaseResponseModel((int)result, result.ToString());
         }
         #endregion
@@ -76,9 +82,11 @@ namespace Service.ServiceImplementations
         {
             if (string.IsNullOrEmpty(request.TransactionId) || request.Amount <= 0)
                 return new BaseResponseModel((int)ErrorCode.UnknownError, ErrorCode.UnknownError.ToString());
+
             var checkTransaction = _casinoBalanceManager.CheckTransaction(request.TransactionId);
             if (!checkTransaction.Equals(ErrorCode.Success))
                 return new BaseResponseModel((int)checkTransaction, checkTransaction.ToString());
+
             var increaseResult = _casinoBalanceManager.IncreaseBalance(request.Amount, request.TransactionId);
             return new BaseResponseModel((int)increaseResult, increaseResult.ToString());
         }
@@ -86,17 +94,21 @@ namespace Service.ServiceImplementations
         {
             if (string.IsNullOrEmpty(request.TransactionId) || request.Amount <= 0)
                 return new BaseResponseModel((int)ErrorCode.UnknownError, ErrorCode.UnknownError.ToString());
+
             var checkTransaction = _casinoBalanceManager.CheckTransaction(request.TransactionId);
             if (!checkTransaction.Equals(ErrorCode.Success))
                 return new BaseResponseModel((int)checkTransaction, checkTransaction.ToString());
+
             var decreaseResult = _casinoBalanceManager.DecreaseBalance(request.Amount, request.TransactionId);
             return new BaseResponseModel((int)decreaseResult, decreaseResult.ToString());
         }
         BaseResponseModel RollbackCasino(TransferBaseRequestModel request)
         {
             var result = _casinoBalanceManager.Rollback(request.TransactionId);
+
             if (result.Equals(ErrorCode.Success))
                 return new BaseResponseModel((int)ErrorCode.TransactionRejected, ErrorCode.TransactionRejected.ToString());
+
             return new BaseResponseModel((int)result, result.ToString());
         }
         #endregion
