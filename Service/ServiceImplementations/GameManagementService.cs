@@ -26,43 +26,43 @@ namespace Service.ServiceImplementations
         public BaseResponseModel TransferMoneyToPlayer(TransferMoneyRequestModel request)
         {
             var deduction = DeductionMoneyCasino(request);
-            if (deduction.HttpStatusCode.Equals((int)ErrorCode.Success))
+            if (deduction.Equals(ErrorCode.Success))
             {
                 var enrollment = EnrollmentMoneyPlayer(request);
-                return enrollment.HttpStatusCode.Equals((int)ErrorCode.Success) ? enrollment : RollbackCasino(new ServiceModels.TransferModel.TransferBaseRequestModel(request.TransactionId));
+                return enrollment.Equals(ErrorCode.Success) ? new BaseResponseModel((int)enrollment, enrollment.ToString()) : RollbackCasino(new ServiceModels.TransferModel.TransferBaseRequestModel(request.TransactionId));
             }
-            return deduction;
+            return new BaseResponseModel((int)deduction, deduction.ToString());
         }
         public BaseResponseModel TransferMoneyToCasino(TransferMoneyRequestModel request)
         {
             var deduction = DeductionMoneyPlayer(request);
-            if (deduction.HttpStatusCode.Equals((int)ErrorCode.Success))
+            if (deduction.Equals(ErrorCode.Success))
             {
                 var enrollment = EnrollmentMoneyCasino(request);
-                return enrollment.HttpStatusCode.Equals((int)ErrorCode.Success) ? enrollment : RollbackPlayer(new ServiceModels.TransferModel.TransferBaseRequestModel(request.TransactionId));
+                return enrollment.Equals(ErrorCode.Success) ? new BaseResponseModel((int)enrollment, enrollment.ToString()) : RollbackPlayer(new ServiceModels.TransferModel.TransferBaseRequestModel(request.TransactionId));
             }
-            return deduction;
+            return new  BaseResponseModel((int)deduction, deduction.ToString());
         }
         #region Player
-        BaseResponseModel EnrollmentMoneyPlayer(TransferMoneyRequestModel request)
+        ErrorCode EnrollmentMoneyPlayer(TransferMoneyRequestModel request)
         {
             if (string.IsNullOrEmpty(request.TransactionId) || request.Amount <= 0)
-                return new BaseResponseModel((int)ErrorCode.UnknownError, ErrorCode.UnknownError.ToString());
+                return ErrorCode.UnknownError;
 
             var playerCheckTransaction = _casinoBalanceManager.CheckTransaction(request.TransactionId);
             if (!playerCheckTransaction.Equals(ErrorCode.Success))
-                return new BaseResponseModel((int)playerCheckTransaction, playerCheckTransaction.ToString());
+                return playerCheckTransaction;
 
             var increaseResult = _gameBalanceManager.IncreaseBalance(request.Amount, request.TransactionId);
-            return new BaseResponseModel((int)increaseResult, increaseResult.ToString());
+            return increaseResult;
         }
-        BaseResponseModel DeductionMoneyPlayer(TransferMoneyRequestModel request)
+        ErrorCode DeductionMoneyPlayer(TransferMoneyRequestModel request)
         {
             if (string.IsNullOrEmpty(request.TransactionId) || request.Amount <= 0)
-                return new BaseResponseModel((int)ErrorCode.UnknownError, ErrorCode.UnknownError.ToString());
+                return ErrorCode.UnknownError;
 
             var decreaseResult = _gameBalanceManager.DecreaseBalance(request.Amount, request.TransactionId);
-            return new BaseResponseModel((int)decreaseResult, decreaseResult.ToString());
+            return decreaseResult;
         }
         BaseResponseModel RollbackPlayer(TransferBaseRequestModel request)
         {
@@ -75,25 +75,25 @@ namespace Service.ServiceImplementations
         }
         #endregion
         #region Casino
-        BaseResponseModel EnrollmentMoneyCasino(TransferMoneyRequestModel request)
+        ErrorCode EnrollmentMoneyCasino(TransferMoneyRequestModel request)
         {
             if (string.IsNullOrEmpty(request.TransactionId) || request.Amount <= 0)
-                return new BaseResponseModel((int)ErrorCode.UnknownError, ErrorCode.UnknownError.ToString());
+                return ErrorCode.UnknownError;
 
             var checkTransaction = _gameBalanceManager.CheckTransaction(request.TransactionId);
             if (!checkTransaction.Equals(ErrorCode.Success))
-                return new BaseResponseModel((int)checkTransaction, checkTransaction.ToString());
+                return checkTransaction;
 
             var increaseResult = _casinoBalanceManager.IncreaseBalance(request.Amount, request.TransactionId);
-            return new BaseResponseModel((int)increaseResult, increaseResult.ToString());
+            return increaseResult;
         }
-        BaseResponseModel DeductionMoneyCasino(TransferMoneyRequestModel request)
+        ErrorCode DeductionMoneyCasino(TransferMoneyRequestModel request)
         {
             if (string.IsNullOrEmpty(request.TransactionId) || request.Amount <= 0)
-                return new BaseResponseModel((int)ErrorCode.UnknownError, ErrorCode.UnknownError.ToString());
+                return ErrorCode.UnknownError;
 
             var decreaseResult = _casinoBalanceManager.DecreaseBalance(request.Amount, request.TransactionId);
-            return new BaseResponseModel((int)decreaseResult, decreaseResult.ToString());
+            return decreaseResult;
         }
         BaseResponseModel RollbackCasino(TransferBaseRequestModel request)
         {
