@@ -11,8 +11,8 @@ namespace BalanceManagement.Controllers
     [Authorize(AuthenticationSchemes = "Bearer")]
     public class BalanceController : BaseController
     {
-        private readonly IBaseManagementService _baseManagementService;
-        public BalanceController(IBaseManagementService baseManagementService)
+        private readonly IGameManagementService _baseManagementService;
+        public BalanceController(IGameManagementService baseManagementService)
         {
             _baseManagementService = baseManagementService;
         }

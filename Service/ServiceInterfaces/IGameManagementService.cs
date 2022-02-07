@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Service.ServiceInterfaces
 {
-    public interface IBaseManagementService
+    public interface IGameManagementService
     {
         BaseResponseModel TransferMoneyToPlayer(TransferMoneyRequestModel request);
         BaseResponseModel TransferMoneyToCasino(TransferMoneyRequestModel request);

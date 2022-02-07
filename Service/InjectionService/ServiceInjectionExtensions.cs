@@ -9,7 +9,7 @@ namespace Service.InjectionService
     {
         public static IServiceCollection AddService(this IServiceCollection services)
         {
-            services.AddScoped<IBaseManagementService, GameManagementService>();
+            services.AddScoped<IGameManagementService, GameManagementService>();
             return services;
         }
     }

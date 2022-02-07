@@ -8,7 +8,7 @@ namespace GameServiceTest
     [TestClass]
     public class GameTest
     {
-        private readonly IBaseManagementService _managementService;
+        private readonly IGameManagementService _managementService;
         public GameTest()
         {   
             _managementService = new GameManagementService();

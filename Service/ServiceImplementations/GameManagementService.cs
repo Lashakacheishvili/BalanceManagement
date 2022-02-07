@@ -6,7 +6,7 @@ using System;
 
 namespace Service.ServiceImplementations
 {
-    public class GameManagementService : IBaseManagementService
+    public class GameManagementService : IGameManagementService
     {
         private readonly IBalanceManager _gameBalanceManager;
         private readonly IBalanceManager _casinoBalanceManager;
