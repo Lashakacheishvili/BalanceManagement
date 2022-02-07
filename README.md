@@ -33,4 +33,6 @@ Client Credentials:
 ## Testing
 
 You can test it by swagger doc or postman.
+<br> 
+https://www.getpostman.com/collections/31210cf5be78b9eaa420
 
